@@ -1,0 +1,116 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<hudson>
+  <disabledAdministrativeMonitors/>
+  <version>2.190.2</version>
+  <installStateName>RUNNING</installStateName>
+  <numExecutors>0</numExecutors>
+  <mode>NORMAL</mode>
+  <useSecurity>true</useSecurity>
+  <authorizationStrategy class="hudson.security.AuthorizationStrategy$Unsecured"/>
+  <securityRealm class="hudson.security.SecurityRealm$None"/>
+  <disableRememberMe>false</disableRememberMe>
+  <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
+  <workspaceDir>${JENKINS_HOME}/workspace/${ITEM_FULL_NAME}</workspaceDir>
+  <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
+  <jdks/>
+  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+  <clouds>
+    <org.csanchez.jenkins.plugins.kubernetes.KubernetesCloud plugin="kubernetes@1.21.2">
+      <name>kubernetes</name>
+      <defaultsProviderTemplate></defaultsProviderTemplate>
+      <templates>
+        <org.csanchez.jenkins.plugins.kubernetes.PodTemplate>
+          <inheritFrom></inheritFrom>
+          <name>jenkins-slave</name>
+          <namespace></namespace>
+          <privileged>false</privileged>
+          <capOnlyOnAlivePods>false</capOnlyOnAlivePods>
+          <alwaysPullImage>false</alwaysPullImage>
+          <instanceCap>2147483647</instanceCap>
+          <slaveConnectTimeout>100</slaveConnectTimeout>
+          <idleMinutes>0</idleMinutes>
+          <activeDeadlineSeconds>0</activeDeadlineSeconds>
+          <label>jenkins-slave</label>
+          <nodeSelector></nodeSelector>
+          <nodeUsageMode>NORMAL</nodeUsageMode>
+          <hostNetwork>false</hostNetwork>
+          <workspaceVolume class="org.csanchez.jenkins.plugins.kubernetes.volumes.workspace.EmptyDirWorkspaceVolume">
+            <memory>false</memory>
+          </workspaceVolume>
+          <volumes/>
+          <containers>
+            <org.csanchez.jenkins.plugins.kubernetes.ContainerTemplate>
+              <name>jenkins-slave</name>
+              <image>jenkinsci/ssh-slave</image>
+              <privileged>false</privileged>
+              <alwaysPullImage>false</alwaysPullImage>
+              <workingDir>/home/jenkins/agent</workingDir>
+              <command>/bin/sh -c</command>
+              <args>cat</args>
+              <ttyEnabled>true</ttyEnabled>
+              <resourceRequestCpu></resourceRequestCpu>
+              <resourceRequestMemory></resourceRequestMemory>
+              <resourceLimitCpu></resourceLimitCpu>
+              <resourceLimitMemory></resourceLimitMemory>
+              <envVars/>
+              <ports/>
+              <livenessProbe>
+                <execArgs></execArgs>
+                <timeoutSeconds>0</timeoutSeconds>
+                <initialDelaySeconds>0</initialDelaySeconds>
+                <failureThreshold>0</failureThreshold>
+                <periodSeconds>0</periodSeconds>
+                <successThreshold>0</successThreshold>
+              </livenessProbe>
+            </org.csanchez.jenkins.plugins.kubernetes.ContainerTemplate>
+          </containers>
+          <envVars/>
+          <annotations/>
+          <imagePullSecrets/>
+          <nodeProperties/>
+          <yamlMergeStrategy class="org.csanchez.jenkins.plugins.kubernetes.pod.yaml.Overrides"/>
+          <showRawYaml>true</showRawYaml>
+          <podRetention class="org.csanchez.jenkins.plugins.kubernetes.pod.retention.Default"/>
+        </org.csanchez.jenkins.plugins.kubernetes.PodTemplate>
+      </templates>
+      <serverUrl>https://192.168.99.100:8443</serverUrl>
+      <skipTlsVerify>false</skipTlsVerify>
+      <addMasterProxyEnvVars>false</addMasterProxyEnvVars>
+      <capOnlyOnAlivePods>false</capOnlyOnAlivePods>
+      <directConnection>false</directConnection>
+      <jenkinsUrl>http://jenkins-master-0.jenkins-master.jenkins-test.svc.cluster.local:8080</jenkinsUrl>
+      <credentialsId>56e282a2-5644-4c6c-b667-3f93a82dd355</credentialsId>
+      <containerCap>10</containerCap>
+      <retentionTimeout>5</retentionTimeout>
+      <connectTimeout>5</connectTimeout>
+      <readTimeout>15</readTimeout>
+      <podLabels>
+        <org.csanchez.jenkins.plugins.kubernetes.PodLabel>
+          <key>jenkins</key>
+          <value>slave</value>
+        </org.csanchez.jenkins.plugins.kubernetes.PodLabel>
+      </podLabels>
+      <usageRestricted>false</usageRestricted>
+      <maxRequestsPerHost>32</maxRequestsPerHost>
+      <waitForPodSec>600</waitForPodSec>
+      <podRetention class="org.csanchez.jenkins.plugins.kubernetes.pod.retention.Never"/>
+    </org.csanchez.jenkins.plugins.kubernetes.KubernetesCloud>
+  </clouds>
+  <quietPeriod>5</quietPeriod>
+  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
+  <views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>all</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+    </hudson.model.AllView>
+  </views>
+  <primaryView>all</primaryView>
+  <slaveAgentPort>50000</slaveAgentPort>
+  <label></label>
+  <nodeProperties/>
+  <globalNodeProperties/>
+</hudson>
